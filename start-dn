@@ -1,0 +1,4 @@
+#!/bin/bash
+cd /localtmp//experiment_zl/namenode/bin
+./hdfs datanode &>/localtmp//experiment_zl/log/datanode &
+echo $! >> ~/log/pids

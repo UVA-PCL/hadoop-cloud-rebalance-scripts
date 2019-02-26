@@ -1,0 +1,16 @@
+#!/bin/bash
+num=(10)
+i=1
+for var in ${num[@]}
+do
+
+for((j=1;j<=var;j++))
+do
+timeout 60 ~/scripts/10percent $j &
+#echo $j
+done
+
+sleep 60
+
+done
+

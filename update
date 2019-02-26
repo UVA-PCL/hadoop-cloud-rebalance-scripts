@@ -1,0 +1,8 @@
+#!/bin/bash
+arr=(51 49 47 44 43 41 39 38 37 35 33 31 29 27 25 24 23 19 18 17 15 14 13 11)
+#arr=(6)
+for var in ${arr[@]}
+do
+ssh zl4dc@shen-$var "rm -rf /localtmp/experiment_zl/hadoop_tmp; rm -rf /localtmp/experiment_zl/namenode; cp -r ~/namenode /localtmp/experiment_zl; cd /localtmp/experiment_zl/namenode/bin; chmod a+x *; cd /localtmp/experiment_zl/namenode/etc/hadoop; rm -rf core-site.xml yarn-site.xml hdfs-site.xml mapred-site.xml; cp ~/hadoop_setting/hdfs-site.xml ./; cp ~/hadoop_setting/mapred-site.xml ./; cp ~/hadoop_setting/yarn-site.xml ./; cp ~/hadoop_setting/core-site.xml ./; echo 'shen-'$var' done' " &
+done
+wait

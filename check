@@ -1,0 +1,2 @@
+#!/bin/bash
+ssh zl4dc@shen-$1 "cat /localtmp/experiment_zl/log/datanode"

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+cd /localtmp/experiment_zl/namenode/bin
+
+while :
+do
+
+./hadoop fs -mkdir /$1
+./hadoop fs -rm -r /$1
+#sleep 0.001
+
+done
+

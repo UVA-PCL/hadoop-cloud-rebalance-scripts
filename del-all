@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /localtmp/experiment_zl/namenode/bin
+./hadoop fs -rm /*.file

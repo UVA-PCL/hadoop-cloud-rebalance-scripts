@@ -1,0 +1,5 @@
+#!/bin/bash
+cd /localtmp/experiment_zl/namenode/bin
+./hdfs namenode &>/localtmp/experiment_zl/log/namenode &
+echo $! > /localtmp/experiment_zl/log/pids
+
