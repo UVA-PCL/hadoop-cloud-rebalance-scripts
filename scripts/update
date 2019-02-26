@@ -1,0 +1,7 @@
+#!/bin/bash
+source $(dirname $0)/config.sh
+for var in ${EXPERIMENT_MACHINES[@]}
+do
+$EXPERIMENT_SSH $var "$EXPERIMENT_SCRIPT_DIR/update; echo $HOST done" &
+done
+wait
