@@ -1,4 +1,6 @@
 #!/bin/bash
-cd /localtmp//experiment_zl/namenode/bin
-./hdfs datanode &>/localtmp//experiment_zl/log/datanode &
-echo $! >> ~/log/pids
+source $(dirname $0)/config.sh
+
+cd $EXPERIMENT_DIR/namenode/bin
+./hdfs datanode &>$EXPERIMENT_DIR/log/datanode &
+echo $! >> $EXPERIMENT_LOG_DIR/pids

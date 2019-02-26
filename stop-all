@@ -1,7 +1,6 @@
 #!/bin/bash
-arr=(51 49 47 44 43 41 39 38 37 35 33 31 29 27 25 24 23 19 18 17 15 14 13 11 9)
-#arr=(51)
-for var in ${arr[@]}
+source $(dirname $0)/config.sh
+for var in ${EXPERIMENT_MACHINES[@]}
 do
-ssh zl4dc@shen-$var "/localtmp/experiment_zl/log/stop-all"
+$EXPERIMENT_SSH $var "$EXPERIMENT_LOG_DIR/stop-all"  # XXX
 done

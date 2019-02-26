@@ -1,56 +1,47 @@
 #!/bin/bash
-num=(10 10 10 10 9 9 9 9 7 7 7 7 4 4 4 4 1 1 1 1)
+source $(dirname $0)/config.sh
+cd $EXPERIMENT_SCRIPT_DIR
+
 i=1
-for var in ${num[@]}
+for var in ${EXPERIMENT_NODE_COUNTS[@]}
 do
 
 echo "start experiment "$i
-cd ~/scripts
 ./update
 sleep 120s
 echo "update done"
 
-cd ~/scripts
 ./replace
 sleep 20s
 echo "replace done"
 
-cd ~/scripts
 ./start-namenode
 sleep 10s
 echo "start namenode done"
 
-cd ~/scripts
 ./start-alldn 1 2
 sleep 10s
-cd ~/scripts
 ./upload 2000
 sleep 30s
 
-cd ~/scripts
 ./start-alldn 3 4
 sleep 10s
-cd ~/scripts
 ./upload 1000
 sleep 20s
 
-cd ~/scripts
 ./start-alldn 5 6
 sleep 10s
-cd ~/scripts
 ./upload 500
 sleep 15s
 
-cd ~/scripts
 ./start-alldn 7 24
 sleep 60s
-cd ~/scripts
 ./upload 501
 sleep 15s
 echo "initialize datanode done"
 
 
-cd ~/chord/src
+cd $EXPERIMENT_CHORD_SRC
 java Test 24
 echo "start balancing"
 
@@ -62,18 +53,17 @@ sleep 1500
 
 echo "experiment "$i" done"
 
-cd /localtmp/experiment_zl/log
+cd $EXPERIMENT_LOG_DIR
 cp ./namenode ~/experiment
 cd ~/experiment
 mv ./namenode ./ex$i
 echo "save experiment result done"
 
-cd ~/scripts
 ./del-all
 sleep 20s
 ./stop-all
 sleep 60s
-kill -9 $(cat /localtmp/experiment_zl/log/pids)
+kill -9 $(cat $EXPERIMENT_LOG_DIR/log/pids)
 echo "shut down datanode and namenode done"
 ((i++))
 

@@ -1,13 +1,14 @@
 #!/bin/bash
-rm -rf /localtmp/experiment_zl/namenode
-rm -rf /localtmp/experiment_zl/hadoop_tmp
-cp -r ~/namenode /localtmp/experiment_zl
-cd /localtmp/experiment_zl/namenode/etc/hadoop
+source $(dirname $0)/config.sh
+rm -rf $EXPERIMENT_DIR/namenode
+rm -rf $EXPERIMENT_DIR/hadoop_tmp
+cp -r $EXPERIMENT_TEMPLATE_DIR/namenode $EXPERIMENT_DIR/namenode
+cd $EXPERIMENT_DIR/namenode/etc/hadoop
 rm -rf core-site.xml yarn-site.xml hdfs-site.xml mapred-site.xml
 cp ~/hadoop_setting/hdfs-site.xml ./
 cp ~/hadoop_setting/mapred-site.xml ./
 cp ~/hadoop_setting/yarn-site.xml ./
 cp ~/hadoop_setting/core-site.xml ./
-cd /localtmp/experiment_zl/namenode/bin
+cd $EXPERIMENT_DIR/namenode/bin
 chmod a+x *
-/localtmp/experiment_zl/namenode/bin/hdfs namenode -format
+./hdfs namenode -format

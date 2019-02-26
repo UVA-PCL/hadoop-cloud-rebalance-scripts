@@ -1,9 +1,9 @@
 #!/bin/bash
-arr=(51 49 47 44 43 41 39 38 37 35 33 31 29 27 25 24 23 19 18 17 15 14 13 11 9)
-#arr=(51)
+source `dirname $0`/config.sh
+
 for((i=($1-1);i<=($2-1);i++))
 do
-ssh zl4dc@shen-${arr[$i]} " nohup /localtmp/experiment_zl/namenode/bin/hdfs datanode &>/localtmp/experiment_zl/log/datanode &" &
-ssh zl4dc@shen-${arr[$i]} "/localtmp/experiment_zl/log/test"
+$EXPERIMENT_SSH ${EXPERIMENT_MACHINES[$i]} "nohup $EXPERIMENT_DIR/namenode/bin/hdfs datanode &>$EXPERIMENT_DIR/log/datanode &" &
+$EXPERIMENT_SSH ${EXPERIMENT_MACHINES[$i]} "$EXPERIMENT_DIR/scripts/test"
 #sleep 1s
 done
