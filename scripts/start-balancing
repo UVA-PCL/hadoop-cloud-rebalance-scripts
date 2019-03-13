@@ -1,0 +1,4 @@
+#!/bin/bash
+source $(dirname $0)/config.sh
+$EXPERIMENT_DIR/hadoop/bin/hdfs org.apache.hadoop.hdfs.server.chord.StartBalancing \
+    "${EXPERIMENT_CHORD_HOSTS[@]}"

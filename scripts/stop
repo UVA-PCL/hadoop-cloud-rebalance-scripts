@@ -1,0 +1,5 @@
+#!/bin/bash
+source $(dirname $0)/config.sh
+kill $(cat $EXPERIMENT_LOG_DIR/pids)
+sleep 2
+kill -9 $(cat $EXPERIMENT_LOG_DIR/pids)

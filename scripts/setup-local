@@ -1,0 +1,27 @@
+#!/bin/bash
+set -ex
+. $(dirname $0)/config.sh
+
+for i in "${EXPERIMENT_IDS[@]}"; do
+    mkdir -p ${EXPERIMENT_DIRS[$i]}
+    mkdir -p ${EXPERIMENT_DIRS[$i]}/log
+    tar -C ${EXPERIMENT_DIRS[$i]} -xf $EXPERIMENT_HADOOP_TGZ
+    rm -f ${EXPERIMENT_DIRS[$i]}/hadoop
+    ln -s $EXPERIMENT_HADOOP_TGZ_DIR ${EXPERIMENT_DIRS[$i]}/hadoop
+    rm -rf ${EXPERIMENT_DIRS[$i]}/scripts
+    rm -rf ${EXPERIMENT_DIRS[$i]}/hadoop_tmp
+    cp -r $EXPERIMENT_DIR/scripts ${EXPERIMENT_DIRS[$i]}/scripts
+    for file in $(ls $EXPERIMENT_DIR/hadoop-configs-single-template); do
+        sed \
+            -e "s!@EXPERIMENT_DIR@!${EXPERIMENT_DIRS[$i]}!g" \
+            -e "s/@DATANODE_PORT@/$(($i + 40000))/g" \
+            -e "s/@DATANODE_HTTP_PORT@/$(($i + 41000))/g" \
+            -e "s/@DATANODE_IPC_PORT@/$(($i + 42000))/g" \
+            < $EXPERIMENT_DIR/hadoop-configs-single-template/$file \
+            > ${EXPERIMENT_DIRS[$i]}/namenode/etc/hadoop/$file
+    done
+done
+
+for i in 0; do
+    ${EXPERIMENT_DIRS[$i]}/namenode/bin/hdfs namenode -format 
+done

@@ -1,6 +1,6 @@
 #!/bin/bash
 source $(dirname $0)/config.sh
-for var in ${EXPERIMENT_MACHINES[@]}
+for i in ${EXPERIMENT_IDS[@]}
 do
-$EXPERIMENT_SSH $var "$EXPERIMENT_SCRIPT_DIR/stop"  # XXX
+ssh_into_id $i '$EXPERIMENT_SCRIPT_DIR/stop'
 done

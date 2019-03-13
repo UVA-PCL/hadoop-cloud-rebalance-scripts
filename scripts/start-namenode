@@ -1,6 +1,6 @@
 #!/bin/bash
 source $(dirname $0)/config.sh
-cd $EXPERIMENT_DIR/namenode/bin
+cd $EXPERIMENT_DIR/hadoop/bin
 ./hdfs namenode &>$EXPERIMENT_LOG_DIR/namenode &
 echo $! > $EXPERIMENT_LOG_DIR/pids
 

@@ -1,0 +1,58 @@
+#!/bin/bash
+source $(dirname $0)/config.sh
+cd $EXPERIMENT_SCRIPT_DIR
+
+kill $(cat $EXPERIMENT_LOG_DIR/log/pids)
+sleep 10s
+
+i=1
+
+echo "start experiment "$i
+# replace: clear HDFS temporary directories and reformat
+./replace
+sleep 20s
+echo "replace done"
+
+./start-namenode
+sleep 10s
+echo "start namenode done"
+
+# start datenodes 1 and 2
+./start-alldn 1 2
+sleep 10s
+
+# upload a 2000 MB file, to be split among first two datanodes
+./upload 2000
+sleep 30s
+
+# start datenodes 3 and 4
+./start-alldn 3 4
+sleep 10s
+
+# upload a 1000 MB file
+./upload 1000
+sleep 60s
+echo "initialize datanode done"
+
+./start-balancing
+
+# FIXME: master load generation
+sleep 1500
+
+echo "experiment "$i" done"
+
+pushd $EXPERIMENT_LOG_DIR
+cp ./namenode ./ex$i
+popd
+echo "save experiment result done"
+
+./del-all
+sleep 20s
+./stop-all
+sleep 60s
+kill $(cat $EXPERIMENT_LOG_DIR/log/pids)
+sleep 10s
+kill -9 $(cat $EXPERIMENT_LOG_DIR/log/pids)
+echo "shut down datanode and namenode done"
+
+((i++))
