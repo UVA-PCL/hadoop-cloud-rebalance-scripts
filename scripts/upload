@@ -6,6 +6,6 @@ cd $EXPERIMENT_DIR
 dd if=/dev/zero of=$1.file bs=1M count=$1
 
 cd $EXPERIMENT_DIR/namenode/bin
-./hadoop fs -put $EXPERIMENT_DIR/$1.file /
+./hadoop fs -put $EXPERIMENT_DIR/$1.file /`date +%s`
 cd $EXPERIMENT_DIR
 rm ./$1.file

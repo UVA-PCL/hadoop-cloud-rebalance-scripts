@@ -1,14 +1,6 @@
 #!/bin/bash
 source $(dirname $0)/config.sh
-rm -rf $EXPERIMENT_DIR/namenode
-rm -rf $EXPERIMENT_DIR/hadoop_tmp
-cp -r $EXPERIMENT_TEMPLATE_DIR/namenode $EXPERIMENT_DIR/namenode
-cd $EXPERIMENT_DIR/namenode/etc/hadoop
-rm -rf core-site.xml yarn-site.xml hdfs-site.xml mapred-site.xml
-cp $EXPERIMENT_HADOOP_CONFIG_DIR/hdfs-site.xml ./
-cp $EXPERIMENT_HADOOP_CONFIG_DIR/mapred-site.xml ./
-cp $EXPERIMENT_HADOOP_CONFIG_DIR/yarn-site.xml ./
-cp $EXPERIMENT_HADOOP_CONFIG_DIR/core-site.xml ./
 cd $EXPERIMENT_DIR/namenode/bin
 chmod a+x *
+rm -r $EXPERIMENT_DIR/hadoop_tmp/dfs
 ./hdfs namenode -format

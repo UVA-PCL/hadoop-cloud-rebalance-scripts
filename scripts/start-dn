@@ -4,3 +4,8 @@ source $(dirname $0)/config.sh
 cd $EXPERIMENT_DIR/namenode/bin
 ./hdfs datanode &>$EXPERIMENT_DIR/log/datanode &
 echo $! >> $EXPERIMENT_LOG_DIR/pids
+echo "#!/bin/bash" > $EXPERIMENT_LOG_DIR/stop-all
+echo "kill $EXPERIMENT_LOG_DIR/pids" >> $EXPERIMENT_LOG_DIR/stop-all
+echo "sleep 2s" >> $EXPERIMENT_LOG_DIR/stop-all
+echo "kill -9 $EXPERIMENT_LOG_DIR/pids" >> $EXPERIMENT_LOG_DIR/stop-all
+echo "rm $EXPERIMENT_LOG_DIR/pids" >> $EXPERIMENT_LOG_DIR/stop-all
