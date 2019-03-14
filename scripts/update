@@ -1,7 +1,0 @@
-#!/bin/bash
-source $(dirname $0)/config.sh
-for id in ${EXPERIMENT_IDS[@]}
-do
-ssh_into_id $id '$EXPERIMENT_SCRIPT_DIR/upload 1000; echo $HOST done' &
-done
-wait
