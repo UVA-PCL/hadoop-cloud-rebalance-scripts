@@ -35,8 +35,7 @@ sleep 60s
 echo "initialize datanode done"
 
 ## if more datanodes, should also start them
-## upload more files depending on desired distribution 
-
+## upload more files depending on desired distribution
 
 ./start-balancing
 
