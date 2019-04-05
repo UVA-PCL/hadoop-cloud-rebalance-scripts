@@ -8,6 +8,7 @@ for i in "${EXPERIMENT_IDS[@]}"; do
     tar -C ${EXPERIMENT_DIRS[$i]} -xf $EXPERIMENT_HADOOP_TGZ
     rm -f ${EXPERIMENT_DIRS[$i]}/hadoop
     ln -s $EXPERIMENT_HADOOP_TGZ_DIR ${EXPERIMENT_DIRS[$i]}/hadoop
+    ln -s $EXPERIMENT_HADOOP_TGZ_DIR ${EXPERIMENT_DIRS[$i]}/namenode
     rm -rf ${EXPERIMENT_DIRS[$i]}/scripts
     rm -rf ${EXPERIMENT_DIRS[$i]}/hadoop_tmp
     cp -r $EXPERIMENT_DIR/scripts ${EXPERIMENT_DIRS[$i]}/scripts
